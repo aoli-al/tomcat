@@ -259,6 +259,7 @@ public class SecureNioChannel extends NioChannel {
     }
 
 
+    static boolean debug = true;
     /*
      * Peeks at the initial network bytes to determine if the SNI extension is
      * present and, if it is, what host name has been requested. Based on the
@@ -324,6 +325,9 @@ public class SecureNioChannel extends NioChannel {
 
         if (log.isDebugEnabled()) {
             log.debug(sm.getString("channel.nio.ssl.sniHostName", sc, hostName));
+        }
+        if (debug) {
+            throw new SSLException("injected ssl exception");
         }
 
         sslEngine = endpoint.createSSLEngine(hostName, clientRequestedCiphers,
